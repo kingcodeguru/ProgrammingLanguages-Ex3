@@ -11,8 +11,8 @@ pub fn solve_a(e: &AExp, s: &State) -> i32 {
         // Default to 0 if the variable is not found
         AExp::Var(x) => *s.get(x).unwrap_or(&0), 
         AExp::Add(e1, e2) => solve_a(e1, s) + solve_a(e2, s), 
-        AExp::Mult(e1, e2) => /* please insert your implementation here */,
-        AExp::Sub(e1, e2) => /* please insert your implementation here */,
+        AExp::Mult(e1, e2) => solve_a(e1, s) * solve_a(e2, s),
+        AExp::Sub(e1, e2) => solve_a(e1, s) - solve_a(e2, s),
     }
 }
 
