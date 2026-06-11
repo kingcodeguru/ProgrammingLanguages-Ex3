@@ -22,18 +22,51 @@ pub fn solve_a(e: &AExp, s: &State) -> i32 {
 }
 
 // BVal is simply the Rust 'bool' type, mapping to OCaml's "tt" and "ff"
-pub type BVal = bool;
+pub type BVal = String;
 
 // solve_b: BExp -> State -> BVal (bool)
 pub fn solve_b(e: &BExp, s: &State) -> BVal {
     match e {
-        BExp::True => true, 
-        BExp::False => false, 
-        BExp::Neg(e1) => !solve_b(e1, s), 
-        BExp::Beq(e1, e2) => solve_b(e1, s) == solve_b(e2, s), 
-        BExp::Aeq(e1, e2) => solve_a(e1, s) == solve_a(e2, s), 
-        BExp::Gte(e1, e2) => solve_a(e1, s) >= solve_a(e2, s), 
-        BExp::And(e1, e2) => /* please insert your implementation here */,
+        BExp::True => "tt".to_string(), 
+        BExp::False => "ff".to_string(), 
+        BExp::Neg(e1) => {
+            let b1 = solve_b(e1, s);
+            if b1 == "tt".to_string() {
+                "ff".to_string()
+            } else {
+                "tt".to_string()
+            }
+        },
+        BExp::Beq(e1, e2) => {
+            if solve_b(e1, s) == solve_b(e2, s) {
+                "tt".to_string()
+            } else {
+                "ff".to_string()
+            }
+        },
+        BExp::Aeq(e1, e2) => {
+            if solve_a(e1, s) == solve_a(e2, s) {
+                "tt".to_string()
+            } else {
+                "ff".to_string()
+            }
+        },
+        BExp::Gte(e1, e2) => {
+            if solve_a(e1, s) >= solve_a(e2, s) {
+                "tt".to_string()
+            } else {
+                "ff".to_string()
+            }
+        },
+        BExp::And(e1, e2) => {
+            let b1 = solve_b(e1, s);
+            let b2 = solve_b(e2, s);
+            if b1 == "tt".to_string() && b2 == "tt".to_string() {
+                "tt".to_string()
+            } else {
+                "ff".to_string()
+            }
+        },
     }
 }
 

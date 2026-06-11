@@ -21,7 +21,7 @@ pub fn nos(c: (Stm, State)) -> State {
 
         // If: [if_tt] and [if_ff]
         Stm::If(b, s1, s2) => {
-            if solve_b(&b, &state) {
+            if solve_b(&b, &state) == "tt".to_string() {
                 nos((*s1, state))
             } else {
                 nos((*s2, state))
@@ -30,7 +30,7 @@ pub fn nos(c: (Stm, State)) -> State {
 
         // While: [while_tt] and [while_ff]
         Stm::While(b, s) => {
-            if solve_b(&b, &state) {
+            if solve_b(&b, &state) == "tt".to_string() {
                 let s_tag = nos(((*s).clone(), state));
                 nos((Stm::While(b, s), s_tag))
             } else {
