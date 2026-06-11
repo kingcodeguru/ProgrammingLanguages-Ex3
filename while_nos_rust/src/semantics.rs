@@ -13,6 +13,11 @@ pub fn solve_a(e: &AExp, s: &State) -> i32 {
         AExp::Add(e1, e2) => solve_a(e1, s) + solve_a(e2, s), 
         AExp::Mult(e1, e2) => solve_a(e1, s) * solve_a(e2, s),
         AExp::Sub(e1, e2) => solve_a(e1, s) - solve_a(e2, s),
+        AExp::Iand(e1, e2) => solve_a(e1, s) & solve_a(e2, s),
+
+        // Section 3
+        AExp::Shl(e1, e2) => solve_a(e1, s) * 2_i32.pow(solve_a(e2, s) as u32),
+        AExp::Shr(e1, e2) => solve_a(e1, s) / 2_i32.pow(solve_a(e2, s) as u32), /* It automatically does floor*/
     }
 }
 

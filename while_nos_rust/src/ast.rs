@@ -8,8 +8,13 @@ pub enum AExp {
     Var(VarName),
     Add(Box<AExp>, Box<AExp>),
     Mult(Box<AExp>, Box<AExp>),
+    // Section 1
     Sub(Box<AExp>, Box<AExp>),
     Iand(Box<AExp>, Box<AExp>),
+
+    // Section 3
+    Shl(Box<AExp>, Box<AExp>),
+    Shr(Box<AExp>, Box<AExp>),
 }
 
 // Boolean Expressions (BExp)

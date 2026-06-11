@@ -15,8 +15,8 @@ pub fn nos(c: (Stm, State)) -> State {
 
         // Composition: [comp]
         Stm::Comp(s1, s2) => {
-            let s_tag = nos((*s1, state));
-            nos((*s2, s_tag))
+            let s_tag = nos(((*s1).clone(), state));
+            nos(((*s2).clone(), s_tag))
         }
 
         // If: [if_tt] and [if_ff]
@@ -31,7 +31,7 @@ pub fn nos(c: (Stm, State)) -> State {
         // While: [while_tt] and [while_ff]
         Stm::While(b, s) => {
             if solve_b(&b, &state) {
-                let s_tag = nos((*s, state));
+                let s_tag = nos(((*s).clone(), state));
                 nos((Stm::While(b, s), s_tag))
             } else {
                 state
