@@ -113,3 +113,57 @@ pub fn test4() -> Stm {
         )),
     )
 }
+
+
+/*
+a := 84 ; b := 22 ; c := 0 ; while b != 0 do (
+    a := a << 1 ;
+    b := b >> 1
+)
+*/
+
+pub fn test5() -> Stm {
+    Stm::Comp(
+        // a := 84
+        Box::new(Stm::Ass("a".to_string(), AExp::Num(84))),
+        // ;
+        Box::new(Stm::Comp(
+        // b := 22
+        Box::new(Stm::Ass("b".to_string(), AExp::Num(22))),
+        // ;
+        Box::new(Stm::Comp(
+        // c := 0
+        Box::new(Stm::Ass("c".to_string(), AExp::Num(0))),
+        // while 
+        Box::new(Stm::While(
+            // b != 0
+            BExp::Neg(
+                Box::new(BExp::Aeq(
+                    AExp::Var("b".to_string()),
+                    AExp::Num(0),
+                )),
+            ),
+            // body of the while
+            Box::new(Stm::Comp(
+                // a := a << 1
+                Box::new(Stm::Ass(
+                    "a".to_string(),
+                    AExp::Shl(
+                        Box::new(AExp::Var("a".to_string())),
+                        Box::new(AExp::Num(1)),
+                    ),
+                )),
+                // b := b >> 1
+                Box::new(Stm::Ass(
+                    "b".to_string(),
+                    AExp::Shr(
+                        Box::new(AExp::Var("b".to_string())),
+                        Box::new(AExp::Num(1)),
+                    ),
+                )),
+            )),
+        )),
+        )),
+        )),
+    )
+}

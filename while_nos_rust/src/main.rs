@@ -3,7 +3,10 @@ mod ast;
 mod semantics;
 mod nos;
 
-use ast::{Stm, test1, test2, test3, test4, test5, test6, test7, test8, test9};
+// for when there isn't tests yet:
+use ast::{Stm, test1, test2, test3, test4, test5};
+// for when there is tests:
+// use ast::{Stm, test1, test2, test3, test4, test5, test6, test7, test8, test9};
 use semantics::{State, s0, s1, s2};
 use nos::nos; 
 
@@ -32,4 +35,7 @@ fn main() {
 
     // test4 (While loop, Factorial) starting with s1 (x=5) -> y=120
     run_test("test4", test4(), s1(), "y");
+
+    // test5 (section 5) starting with s0
+    run_test("test5", test5(), s2(), "x");
 }
