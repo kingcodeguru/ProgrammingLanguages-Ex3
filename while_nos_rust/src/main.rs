@@ -3,11 +3,8 @@ mod ast;
 mod semantics;
 mod nos;
 
-// for when there isn't tests yet:
-use ast::{Stm, test1, test2, test3, test4, test5};
-// for when there is tests:
-// use ast::{Stm, test1, test2, test3, test4, test5, test6, test7, test8, test9};
-use semantics::{State, s0, s1, s2};
+use ast::{Stm, test1, test2, test3, test4, test5, test6, test7, test8};
+use semantics::{State, s0, s1, s2, s3, s4};
 use nos::nos; 
 
 
@@ -37,5 +34,14 @@ fn main() {
     run_test("test4", test4(), s1(), "y");
 
     // test5 (section 5) starting with s0
-    run_test("test5", test5(), s2(), "x");
+    run_test("test5", test5(), s0(), "x");
+
+    // section 7
+
+    // test6 (section 7) starting with s0
+    run_test("test6", test6(), s3(), "r");
+    // test7 (section 7) starting with s0
+    run_test("test7", test7(), s4(), "a");
+    // test8 (section 8) starting with s2
+    run_test("test8", test8(), s2(), "a");
 }

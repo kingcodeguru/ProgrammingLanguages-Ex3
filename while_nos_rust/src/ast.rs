@@ -37,6 +37,7 @@ pub enum Stm {
     Comp(Box<Stm>, Box<Stm>),
     If(BExp, Box<Stm>, Box<Stm>),
     While(BExp, Box<Stm>),
+    DoWhile(Box<Stm>, BExp),
 }
 
 
@@ -114,6 +115,7 @@ pub fn test4() -> Stm {
     )
 }
 
+// section 5
 
 /*
 a := 84 ; b := 22 ; c := 0 ; while b != 0 do (
@@ -164,6 +166,129 @@ pub fn test5() -> Stm {
             )),
         )),
         )),
+        )),
+    )
+}
+
+// New TESTS
+
+/*
+i := 0 ; n := 5 ; r := 0
+do
+r := r + 10; i := i + 1;
+while i != n
+*/
+
+pub fn test6() -> Stm {
+    Stm::Comp(
+        Box::new(Stm::Ass("i".to_string(), AExp::Num(0))),
+        Box::new(Stm::Comp(
+            Box::new(Stm::Ass("n".to_string(), AExp::Num(5))),
+            Box::new(Stm::Comp(
+                Box::new(Stm::Ass("r".to_string(), AExp::Num(0))),
+                Box::new(Stm::DoWhile(
+                    Box::new(Stm::Comp(
+                        Box::new(Stm::Ass(
+                            "r".to_string(),
+                            AExp::Add(
+                                Box::new(AExp::Var("r".to_string())),
+                                Box::new(AExp::Num(10)),
+                            ),
+                        )),
+                        Box::new(Stm::Ass(
+                            "i".to_string(),
+                            AExp::Add(
+                                Box::new(AExp::Var("i".to_string())),
+                                Box::new(AExp::Num(1)),
+                            ),
+                        )),
+                    )),
+                    BExp::Neg(Box::new(BExp::Aeq(
+                        AExp::Var("i".to_string()),
+                        AExp::Var("n".to_string()),
+                    ))),
+                )),
+            )),
+        )),
+    )
+}
+
+/*
+a := 11 ; b := 0 ;
+if (a << 1) >> 1 == 1
+    b := b + 1
+else
+    Skip
+*/
+
+pub fn test7() -> Stm {
+    Stm::Comp(
+        Box::new(Stm::Ass("a".to_string(), AExp::Num(11))),
+        Box::new(Stm::Comp(
+            Box::new(Stm::Ass("b".to_string(), AExp::Num(0))),
+            Box::new(Stm::If(
+                BExp::Aeq(
+                    AExp::Shr(
+                        Box::new(AExp::Shl(
+                            Box::new(AExp::Var("a".to_string())),
+                            Box::new(AExp::Num(1)),
+                        )),
+                        Box::new(AExp::Num(1)),
+                    ),
+                    AExp::Num(1),
+                ),
+                Box::new(Stm::Ass(
+                    "b".to_string(),
+                    AExp::Add(
+                        Box::new(AExp::Var("b".to_string())),
+                        Box::new(AExp::Num(1)),
+                        ),
+                    )),
+                Box::new(Stm::Skip),
+                )),
+        )),
+    )
+}
+
+
+/*
+a := ((1+3)*2-1) & 13
+if a == 5
+    b := 1
+else
+    b := 0
+*/
+pub fn test8() -> Stm {
+    Stm::Comp(
+        Box::new(Stm::Ass(
+            "a".to_string(),
+            AExp::Iand(
+                Box::new(AExp::Sub(
+                    Box::new(AExp::Mult(
+                    Box::new(AExp::Add(
+                        Box::new(AExp::Num(1)),
+                        Box::new(AExp::Num(3)),
+                    )),
+                    Box::new(AExp::Num(2)),
+                    )),
+                Box::new(AExp::Num(1)),
+                )),
+                Box::new(AExp::Num(13)),
+            )),
+        ),
+        Box::new(Stm::If(
+            BExp::Aeq(
+                    AExp::Var("a".to_string()),
+                    AExp::Num(5),
+            ),
+            Box::new(Stm::Ass(
+                "b".to_string(),
+                AExp::Num(1),
+            )),
+            Box::new(Stm::Ass(
+                "b".to_string(),
+                AExp::Num(0),
+            )),
         )),
     )
 }

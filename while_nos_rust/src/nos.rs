@@ -37,5 +37,18 @@ pub fn nos(c: (Stm, State)) -> State {
                 state
             }
         }
+
+        // DoWhile: [do_while_tt] and [do_while_ff]
+        Stm::DoWhile(s, b) => {
+            // calc s'
+            let s_tag = nos(((*s).clone(), state));
+            if solve_b(&b, &s_tag) == "tt".to_string() {
+                // if B[s'] == tt - run the DoWhile on s'
+                nos((Stm::DoWhile(s, b), s_tag))
+            } else {
+                // o.w, just run statement on s (s') and return it
+                s_tag
+            }
+        }
     }
 }
