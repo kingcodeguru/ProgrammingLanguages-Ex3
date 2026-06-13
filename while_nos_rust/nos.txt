@@ -7,6 +7,7 @@ Test test4 - y = 120
 Test test5 - x = 1
 Test test5 - a = 2688
 Test test5 - b = 0
+Test test5 - c = 0
 Test test6 - r = 50
 Test test7 - a = 11
 Test test8 - a = 5

@@ -37,6 +37,7 @@ fn main() {
     run_test("test5", test5(), s0(), "x");
     run_test("test5", test5(), s0(), "a");
     run_test("test5", test5(), s0(), "b");
+    run_test("test5", test5(), s0(), "c");
 
     // section 7
 
