@@ -35,6 +35,8 @@ fn main() {
 
     // test5 (section 5) starting with s0
     run_test("test5", test5(), s0(), "x");
+    run_test("test5", test5(), s0(), "a");
+    run_test("test5", test5(), s0(), "b");
 
     // section 7
 
